@@ -1,0 +1,8 @@
+node_modules/
+public/
+
+.husky
+
+pnpm-lock.yaml
+
+.gitignore
