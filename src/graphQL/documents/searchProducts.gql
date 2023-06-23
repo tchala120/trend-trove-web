@@ -1,0 +1,20 @@
+query searchProducts($limit: Int!, $skip: Int!, $search: String!) {
+  searchProducts(limit: $limit, search: $search, skip: $skip) {
+    limit
+    skip
+    total
+    products {
+      brand
+      category
+      description
+      discountPercentage
+      id
+      images
+      price
+      rating
+      stock
+      thumbnail
+      title
+    }
+  }
+}
