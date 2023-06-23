@@ -1,5 +1,20 @@
+import { ConfigProvider } from 'antd'
+
+import { PageRouter } from 'setup/PageRouter'
+
 const App = () => {
-  return <h1>Starter Page v{import.meta.env.VITE_APP_VERSION}</h1>
+  return (
+    <ConfigProvider
+      componentSize="large"
+      theme={{
+        token: {
+          fontFamily: 'Noto Sans Thai',
+        },
+      }}
+    >
+      <PageRouter />
+    </ConfigProvider>
+  )
 }
 
 export default App
