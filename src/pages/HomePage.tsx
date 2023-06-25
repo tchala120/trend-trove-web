@@ -32,6 +32,7 @@ export const HomePage = () => {
       />
 
       <ProductList
+        title="Our Products!"
         loading={listProductsAndCategoriesQuery.isLoading}
         products={listProducts?.products.slice(1)}
       />
