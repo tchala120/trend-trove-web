@@ -14,11 +14,14 @@ import { ProductDetailPage } from 'pages/ProductDetailPage'
 
 import { NotFoundPage } from 'pages/NotFoundPage'
 
+import { PageLayout } from 'layouts/PageLayout'
+
 import { paths } from './routes'
 
 export const PageRouter = () => {
   const router = createBrowserRouter([
     {
+      element: <PageLayout />,
       errorElement: <ErrorBoundary />,
       children: [
         {

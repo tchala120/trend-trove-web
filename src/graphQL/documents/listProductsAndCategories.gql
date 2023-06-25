@@ -1,0 +1,22 @@
+query listProductsAndCategories($limit: Int!, $skip: Int!) {
+  listProductCategories
+
+  listProducts(limit: $limit, skip: $skip) {
+    limit
+    skip
+    total
+    products {
+      brand
+      category
+      description
+      discountPercentage
+      id
+      images
+      price
+      rating
+      stock
+      thumbnail
+      title
+    }
+  }
+}

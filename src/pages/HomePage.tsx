@@ -1,24 +1,40 @@
-import { useListProductsQuery } from 'graphQL/operations'
+import { Space } from 'antd'
+
+import { BestSellerProduct } from 'components/BestSellerProduct'
+import { ProductList } from 'components/ProductList'
+
+import { useListProductsAndCategoriesQuery } from 'graphQL/operations'
 
 import { client } from 'graphQL/client'
 
 export const HomePage = () => {
-  const listProductCategoriesQuery = useListProductsQuery(client, {
-    limit: 10,
-    skip: 0,
-  })
+  const listProductsAndCategoriesQuery = useListProductsAndCategoriesQuery(
+    client,
+    {
+      limit: 11,
+      skip: 0,
+    }
+  )
 
-  const data = listProductCategoriesQuery.data
-
-  if (listProductCategoriesQuery.isLoading) {
-    return <h1>Loading...</h1>
-  }
+  const listProducts = listProductsAndCategoriesQuery.data?.listProducts
 
   return (
-    <div>
-      <h1>Here is the home page</h1>
+    <Space
+      style={{
+        width: '100%',
+      }}
+      size="large"
+      direction="vertical"
+    >
+      <BestSellerProduct
+        loading={listProductsAndCategoriesQuery.isLoading}
+        product={listProducts?.products[0]}
+      />
 
-      <pre>{JSON.stringify(data, null, 2)}</pre>
-    </div>
+      <ProductList
+        loading={listProductsAndCategoriesQuery.isLoading}
+        products={listProducts?.products.slice(1)}
+      />
+    </Space>
   )
 }
