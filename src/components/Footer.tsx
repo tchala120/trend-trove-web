@@ -10,7 +10,7 @@ export const Footer = () => {
         <Space align="center">
           <FontAwesomeIcon icon={faCopyright} />
 
-          <span>2023 Panupong.</span>
+          <span>{new Date().getFullYear()} Panupong.</span>
         </Space>
 
         <span className="version">
