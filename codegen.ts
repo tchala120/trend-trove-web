@@ -27,14 +27,7 @@ const codegenConfig: CodegenConfig = {
         'typescript-react-query',
       ],
       config: {
-        fetcher: {
-          endpoint: url,
-          fetchParams: {
-            headers: {
-              Authorization: authorization,
-            },
-          },
-        },
+        fetcher: 'graphql-request',
       },
     },
   },
