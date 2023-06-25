@@ -19,8 +19,8 @@ export const usePaginationForAPI = (options?: PaginationForAPIOptions) => {
   const [skip, setSkip] = useState<number>(opts.skip)
 
   const loadMoreContents = useCallback(
-    (totalItems = 0) => {
-      return totalItems > skip
+    (totalItems = 0, search?: string) => {
+      return totalItems > skip && search === ''
     },
     [skip]
   )
@@ -29,10 +29,15 @@ export const usePaginationForAPI = (options?: PaginationForAPIOptions) => {
     setSkip((prev) => prev + opts.skipInterval)
   }, [opts.skipInterval])
 
+  const changeToFirstPage = useCallback(() => {
+    setSkip(0)
+  }, [])
+
   return {
     skip,
     limit: opts.limit,
     loadMoreContents,
+    changeToFirstPage,
     onInfiniteLoadChange,
   }
 }
