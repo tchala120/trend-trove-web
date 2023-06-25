@@ -1,6 +1,6 @@
 import { Space, Tag } from 'antd'
 
-import { numberFormat } from 'helpers/formatter'
+import { moneyFormat } from 'helpers/formatter'
 
 interface ProductItemPriceProps {
   price: number
@@ -13,7 +13,11 @@ export const ProductItemPrice = ({
 }: ProductItemPriceProps) => {
   return (
     <Space size="small">
-      <strong>${numberFormat(price)}</strong>
+      <strong>
+        {moneyFormat(price, {
+          prefix: '$',
+        })}
+      </strong>
 
       <Tag color="#cd201f">{discountPercentage}% off</Tag>
     </Space>

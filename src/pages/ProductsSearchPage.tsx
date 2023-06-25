@@ -44,9 +44,7 @@ export const ProductsSearchPage = () => {
 
       <ProductList
         title={
-          data == null
-            ? null
-            : `Found ${numberFormat(data.total, '0,0') || 0} items`
+          data == null ? null : `Found ${numberFormat(data.total) || 0} items`
         }
         loading={searchProductsQuery.isLoading}
         products={data?.products}

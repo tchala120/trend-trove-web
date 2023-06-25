@@ -1,9 +1,13 @@
 import styled from '@emotion/styled'
 import { Button, Space } from 'antd'
 import { useNavigate } from 'react-router-dom'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faAdd } from '@fortawesome/free-solid-svg-icons'
 
 import { Title } from 'components/Title'
 import { LoadingPlaceholder } from 'components/LoadingPlaceholder'
+
+import { useCartContext } from 'contexts/useCartContext'
 
 import { routeTo } from 'helpers/uilts'
 
@@ -21,6 +25,8 @@ export const BestSellerProduct = ({
   product,
 }: BestSellerProductProps) => {
   const navigate = useNavigate()
+
+  const { addNewItem } = useCartContext()
 
   return (
     <Space
@@ -52,7 +58,21 @@ export const BestSellerProduct = ({
             <h1>{product?.title}</h1>
             <p>{product?.description}</p>
 
-            <Button type="primary">Buy Now</Button>
+            <Button
+              type="primary"
+              icon={<FontAwesomeIcon icon={faAdd} />}
+              onClick={(event) => {
+                event.stopPropagation()
+
+                if (product == null) {
+                  return
+                }
+
+                addNewItem(product)
+              }}
+            >
+              Add to Cart
+            </Button>
           </BestSellerProductInfo>
         </BestSellerProductContainer>
       )}

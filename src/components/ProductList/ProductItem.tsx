@@ -8,6 +8,8 @@ import { faAdd } from '@fortawesome/free-solid-svg-icons'
 import { Rating } from 'components/Rating'
 import { ProductItemPrice } from './ProductItemPrice'
 
+import { useCartContext } from 'contexts/useCartContext'
+
 import { routeTo } from 'helpers/uilts'
 
 import { paths } from 'setup/PageRouter'
@@ -27,6 +29,8 @@ interface ProductItemProps {
 
 export const ProductItem = ({ product }: ProductItemProps) => {
   const navigate = useNavigate()
+
+  const { addNewItem } = useCartContext()
 
   return (
     <ProductItemContainer
@@ -91,6 +95,11 @@ export const ProductItem = ({ product }: ProductItemProps) => {
         icon={<FontAwesomeIcon icon={faAdd} />}
         type="primary"
         shape="circle"
+        onClick={(event) => {
+          event.stopPropagation()
+
+          addNewItem(product)
+        }}
       />
     </ProductItemContainer>
   )
