@@ -20,7 +20,7 @@ const codegenConfig: CodegenConfig = {
   documents: ['src/graphQL/documents/**.gql'],
   ignoreNoDocuments: true,
   generates: {
-    './src/graphQL/__generated/operations.ts': {
+    './src/graphQL/operations.ts': {
       plugins: [
         'typescript',
         'typescript-operations',
