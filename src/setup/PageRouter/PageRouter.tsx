@@ -12,6 +12,8 @@ import { ProductDetailPage } from 'pages/ProductDetailPage'
 
 import { NotFoundPage } from 'pages/NotFoundPage'
 
+import { ScrollToTop } from 'components/ScrollToTop'
+
 import { PageLayout } from 'layouts/PageLayout'
 
 import { paths } from './routes'
@@ -34,6 +36,8 @@ export const PageRouter = () => {
 
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
+
+        <ScrollToTop />
       </QueryParamProvider>
     </BrowserRouter>
   )
