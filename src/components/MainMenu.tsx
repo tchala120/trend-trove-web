@@ -12,6 +12,8 @@ import { useNavigate } from 'react-router-dom'
 
 import { BrandLogo } from 'components/BrandLogo'
 
+import { useCartContext } from 'contexts/useCartContext'
+
 import { paths } from 'setup/PageRouter'
 
 const iconProps: Omit<FontAwesomeIconProps, 'icon'> = {
@@ -22,6 +24,8 @@ const iconProps: Omit<FontAwesomeIconProps, 'icon'> = {
 
 export const MainMenu = () => {
   const navigate = useNavigate()
+
+  const { totalItemsInCart } = useCartContext()
 
   return (
     <MainMenuContainer>
@@ -36,7 +40,7 @@ export const MainMenu = () => {
             onClick={() => navigate(paths.search)}
           />
 
-          <Badge>
+          <Badge count={totalItemsInCart}>
             <FontAwesomeIcon
               title="Product cart"
               icon={faBasketShopping}
