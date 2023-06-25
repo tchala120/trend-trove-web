@@ -20,3 +20,10 @@ export const getProductPriceBeforeDiscounted = (
   productPrice: number,
   discountPercentage: number
 ) => productPrice / (1 - discountPercentage / 100)
+
+export const sleep = async (delay = 1000) =>
+  new Promise((resolve) =>
+    setTimeout(() => {
+      resolve(delay)
+    }, delay)
+  )
