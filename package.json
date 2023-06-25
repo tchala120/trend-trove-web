@@ -9,7 +9,7 @@
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview",
     "format": "prettier --write '**/*.{js,jsx,ts,tsx,json,md}'",
-    "format:codegen": "prettier --write './src/graphQL/__generated/**.ts'",
+    "format:codegen": "prettier --write './src/graphQL/**.ts'",
     "prepare": "husky install",
     "codegen": "dotenv -e .env.local -- graphql-codegen --config codegen.ts && pnpm run format:codegen"
   },
