@@ -24,8 +24,13 @@ export const ProductsSearchPage = () => {
   const [listProducts, setListProducts] =
     useState<SearchProductsQuery['searchProducts']['products']>()
 
-  const { limit, skip, loadMoreContents, onInfiniteLoadChange } =
-    usePaginationForAPI()
+  const {
+    limit,
+    skip,
+    loadMoreContents,
+    changeToFirstPage,
+    onInfiniteLoadChange,
+  } = usePaginationForAPI()
 
   const searchProductsQuery = useSearchProductsQuery(
     client,
@@ -62,10 +67,17 @@ export const ProductsSearchPage = () => {
       <Title>Find Your Perfect Product</Title>
 
       <Input.Search
+        defaultValue={search}
         placeholder="iPhone 9..."
         enterButton
         allowClear
-        onSearch={(value) => setSearch(value)}
+        onSearch={(value) => {
+          setSearch(value)
+
+          changeToFirstPage()
+
+          setListProducts(undefined)
+        }}
       />
 
       {search === '' ? null : <strong>Searching for: {search}</strong>}
@@ -74,8 +86,8 @@ export const ProductsSearchPage = () => {
         title={
           data == null ? null : `Found ${numberFormat(data.total) || 0} items`
         }
-        products={listProducts?.slice(1)}
-        loadMoreContents={loadMoreContents(totalProductItems)}
+        products={listProducts}
+        loadMoreContents={loadMoreContents(totalProductItems, search)}
         totalProducts={totalProductItems}
         onNextLoad={onInfiniteLoadChange}
       />
