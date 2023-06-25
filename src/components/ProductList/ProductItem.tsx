@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd } from '@fortawesome/free-solid-svg-icons'
 
 import { routeTo } from 'helpers/uilts'
-import { moneyFormat } from 'helpers/formatter'
+import { numberFormat } from 'helpers/formatter'
 
 import { paths } from 'setup/PageRouter'
 
@@ -81,7 +81,7 @@ export const ProductItem = ({ product }: ProductItemProps) => {
             </Space>
 
             <Space align="end">
-              <strong>${moneyFormat(product.price)}</strong>
+              <strong>${numberFormat(product.price)}</strong>
               <DiscountPercentageText>
                 {product.discountPercentage}% off
               </DiscountPercentageText>

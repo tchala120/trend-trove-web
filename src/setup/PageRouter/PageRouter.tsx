@@ -1,10 +1,8 @@
-import {
-  RouterProvider,
-  useRouteError,
-  createBrowserRouter,
-} from 'react-router-dom'
+import { useRouteError, BrowserRouter, Routes, Route } from 'react-router-dom'
 import { Result } from 'antd'
 import styled from '@emotion/styled'
+import { QueryParamProvider } from 'use-query-params'
+import { ReactRouter6Adapter } from 'use-query-params/adapters/react-router-6'
 
 import { HomePage } from 'pages/HomePage'
 
@@ -19,36 +17,26 @@ import { PageLayout } from 'layouts/PageLayout'
 import { paths } from './routes'
 
 export const PageRouter = () => {
-  const router = createBrowserRouter([
-    {
-      element: <PageLayout />,
-      errorElement: <ErrorBoundary />,
-      children: [
-        {
-          path: paths.home,
-          element: <HomePage />,
-        },
-        {
-          path: paths.search,
-          element: <ProductsSearchPage />,
-        },
-        {
-          path: paths.category,
-          element: <ProductsCategoryPage />,
-        },
-        {
-          path: paths.productDetail,
-          element: <ProductDetailPage />,
-        },
-      ],
-    },
-    {
-      path: '*',
-      element: <NotFoundPage />,
-    },
-  ])
+  return (
+    <BrowserRouter>
+      <QueryParamProvider adapter={ReactRouter6Adapter}>
+        <Routes>
+          <Route
+            path="/"
+            element={<PageLayout />}
+            errorElement={<ErrorBoundary />}
+          >
+            <Route path={paths.home} element={<HomePage />} />
+            <Route path={paths.search} element={<ProductsSearchPage />} />
+            <Route path={paths.category} element={<ProductsCategoryPage />} />
+            <Route path={paths.productDetail} element={<ProductDetailPage />} />
+          </Route>
 
-  return <RouterProvider router={router} />
+          <Route path="*" element={<NotFoundPage />} />
+        </Routes>
+      </QueryParamProvider>
+    </BrowserRouter>
+  )
 }
 
 const ErrorBoundary = () => {
