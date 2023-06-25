@@ -22,7 +22,7 @@ const NotFoundContentContainer = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  min-height: 50vh;
+  min-height: 30vh;
   gap: 24px;
   color: #ccc;
   text-align: center;
