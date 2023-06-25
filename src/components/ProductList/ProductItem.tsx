@@ -1,12 +1,14 @@
-import { Button, Col, Rate, Row, Space, Tag } from 'antd'
+import { Button, Col, Row, Space, Tag } from 'antd'
 import styled from '@emotion/styled'
 import { useNavigate } from 'react-router-dom'
 import { sentenceCase } from 'change-case'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faAdd } from '@fortawesome/free-solid-svg-icons'
 
+import { Rating } from 'components/Rating'
+import { ProductItemPrice } from './ProductItemPrice'
+
 import { routeTo } from 'helpers/uilts'
-import { numberFormat } from 'helpers/formatter'
 
 import { paths } from 'setup/PageRouter'
 
@@ -74,18 +76,12 @@ export const ProductItem = ({ product }: ProductItemProps) => {
               {sentenceCase(product.category)}
             </Tag>
 
-            <Space align="center">
-              <Rate disabled value={product.rating} />
+            <Rating rating={product.rating} />
 
-              <RatingText>({product.rating})</RatingText>
-            </Space>
-
-            <Space align="end">
-              <strong>${numberFormat(product.price)}</strong>
-              <DiscountPercentageText>
-                {product.discountPercentage}% off
-              </DiscountPercentageText>
-            </Space>
+            <ProductItemPrice
+              price={product.price}
+              discountPercentage={product.discountPercentage}
+            />
           </Space>
         </Col>
       </Row>
@@ -123,13 +119,4 @@ const ProductImage = styled.img`
   aspect-ratio: 1/1;
   object-fit: cover;
   object-position: center;
-`
-
-const RatingText = styled.small`
-  color: #ccc;
-`
-
-const DiscountPercentageText = styled.small`
-  font-size: 12px;
-  color: #22a699;
 `

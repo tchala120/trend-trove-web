@@ -1,8 +1,9 @@
 import styled from '@emotion/styled'
-import { Button, Skeleton, Space } from 'antd'
+import { Button, Space } from 'antd'
 import { useNavigate } from 'react-router-dom'
 
 import { Title } from 'components/Title'
+import { LoadingPlaceholder } from 'components/LoadingPlaceholder'
 
 import { routeTo } from 'helpers/uilts'
 
@@ -31,7 +32,7 @@ export const BestSellerProduct = ({
       <Title>Best Seller</Title>
 
       {loading ? (
-        <LoadingPlaceholder />
+        <LoadingPlaceholder height={180} />
       ) : (
         <BestSellerProductContainer
           product={product}
@@ -93,15 +94,3 @@ const BestSellerProductInfo = styled.div`
     color: #999;
   }
 `
-
-const LoadingPlaceholder = () => {
-  return (
-    <Skeleton.Input
-      style={{
-        height: 180,
-      }}
-      active
-      block
-    />
-  )
-}
