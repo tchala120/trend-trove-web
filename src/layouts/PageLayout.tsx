@@ -2,6 +2,7 @@ import { Outlet } from 'react-router-dom'
 import styled from '@emotion/styled'
 
 import { MainMenu } from 'components/MainMenu'
+import { Footer } from 'components/Footer'
 
 export const PageLayout = () => {
   return (
@@ -11,6 +12,8 @@ export const PageLayout = () => {
       <MainContentContainer>
         <Outlet />
       </MainContentContainer>
+
+      <Footer />
     </>
   )
 }
