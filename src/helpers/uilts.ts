@@ -15,3 +15,8 @@ export const routeTo = (path: string, options: RouteToOptions) => {
     ? pathResult
     : `${pathResult}?${qs.stringify(options.query)}`
 }
+
+export const getProductPriceBeforeDiscounted = (
+  productPrice: number,
+  discountPercentage: number
+) => productPrice / (1 - discountPercentage / 100)
