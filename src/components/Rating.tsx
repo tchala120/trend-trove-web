@@ -7,7 +7,7 @@ interface RatingProps {
 
 export const Rating = ({ rating }: RatingProps) => {
   return (
-    <Space align="center" size="large">
+    <Space align="center">
       <Rate disabled value={rating} />
 
       <RatingText>({rating})</RatingText>
