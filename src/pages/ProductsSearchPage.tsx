@@ -1,12 +1,18 @@
+import { useState } from 'react'
 import { Input, Space } from 'antd'
 import { StringParam, useQueryParam, withDefault } from 'use-query-params'
 
 import { Title } from 'components/Title'
 import { ProductList } from 'components/ProductList'
 
+import { usePaginationForAPI } from 'hooks/usePaginationForAPI'
+
 import { numberFormat } from 'helpers/formatter'
 
-import { useSearchProductsQuery } from 'graphQL/operations'
+import {
+  useSearchProductsQuery,
+  type SearchProductsQuery,
+} from 'graphQL/operations'
 import { client } from 'graphQL/client'
 
 export const ProductsSearchPage = () => {
@@ -15,13 +21,40 @@ export const ProductsSearchPage = () => {
     withDefault(StringParam, '')
   )
 
-  const searchProductsQuery = useSearchProductsQuery(client, {
-    search,
-    limit: 10,
-    skip: 0,
-  })
+  const [listProducts, setListProducts] =
+    useState<SearchProductsQuery['searchProducts']['products']>()
+
+  const {
+    limit,
+    skip,
+    loadMoreContents,
+    changeToFirstPage,
+    onInfiniteLoadChange,
+  } = usePaginationForAPI()
+
+  const searchProductsQuery = useSearchProductsQuery(
+    client,
+    {
+      search,
+      limit,
+      skip,
+    },
+    {
+      onSuccess({ searchProducts }) {
+        setListProducts((prev) => {
+          if (prev == null) {
+            return searchProducts.products
+          }
+
+          return prev.concat(searchProducts.products)
+        })
+      },
+    }
+  )
 
   const data = searchProductsQuery.data?.searchProducts
+
+  const totalProductItems = data?.total || 0
 
   return (
     <Space
@@ -34,10 +67,17 @@ export const ProductsSearchPage = () => {
       <Title>Find Your Perfect Product</Title>
 
       <Input.Search
+        defaultValue={search}
         placeholder="iPhone 9..."
         enterButton
         allowClear
-        onSearch={(value) => setSearch(value)}
+        onSearch={(value) => {
+          setSearch(value)
+
+          changeToFirstPage()
+
+          setListProducts(undefined)
+        }}
       />
 
       {search === '' ? null : <strong>Searching for: {search}</strong>}
@@ -46,8 +86,10 @@ export const ProductsSearchPage = () => {
         title={
           data == null ? null : `Found ${numberFormat(data.total) || 0} items`
         }
-        loading={searchProductsQuery.isLoading}
-        products={data?.products}
+        products={listProducts}
+        loadMoreContents={loadMoreContents(totalProductItems, search)}
+        totalProducts={totalProductItems}
+        onNextLoad={onInfiniteLoadChange}
       />
     </Space>
   )

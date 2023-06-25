@@ -1,22 +1,49 @@
+import { useState } from 'react'
 import { Space } from 'antd'
 
 import { BestSellerProduct } from 'components/BestSellerProduct'
 import { ProductList } from 'components/ProductList'
 
-import { useListProductsAndCategoriesQuery } from 'graphQL/operations'
+import { usePaginationForAPI } from 'hooks/usePaginationForAPI'
 
+import {
+  useListProductsQuery,
+  type ListProductsQuery,
+} from 'graphQL/operations'
 import { client } from 'graphQL/client'
 
 export const HomePage = () => {
-  const listProductsAndCategoriesQuery = useListProductsAndCategoriesQuery(
+  const [listProducts, setListProducts] =
+    useState<ListProductsQuery['listProducts']['products']>()
+
+  const { limit, skip, loadMoreContents, onInfiniteLoadChange } =
+    usePaginationForAPI({
+      limit: 11,
+      skipInterval: 11,
+    })
+
+  const listProductsQuery = useListProductsQuery(
     client,
     {
-      limit: 11,
-      skip: 0,
+      limit,
+      skip,
+    },
+    {
+      onSuccess({ listProducts }) {
+        setListProducts((prev) => {
+          if (prev == null) {
+            return listProducts.products
+          }
+
+          return prev.concat(listProducts.products)
+        })
+      },
     }
   )
 
-  const listProducts = listProductsAndCategoriesQuery.data?.listProducts
+  const data = listProductsQuery.data?.listProducts
+
+  const totalProductItems = data?.total || 0
 
   return (
     <Space
@@ -27,14 +54,16 @@ export const HomePage = () => {
       direction="vertical"
     >
       <BestSellerProduct
-        loading={listProductsAndCategoriesQuery.isLoading}
-        product={listProducts?.products[0]}
+        loading={listProductsQuery.isLoading}
+        product={listProducts?.[0]}
       />
 
       <ProductList
         title="Our Products!"
-        loading={listProductsAndCategoriesQuery.isLoading}
-        products={listProducts?.products.slice(1)}
+        products={listProducts?.slice(1)}
+        loadMoreContents={loadMoreContents(totalProductItems)}
+        totalProducts={totalProductItems}
+        onNextLoad={onInfiniteLoadChange}
       />
     </Space>
   )

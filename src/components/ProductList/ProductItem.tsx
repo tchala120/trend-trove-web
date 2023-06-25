@@ -114,6 +114,7 @@ const ProductItemContainer = styled.div`
   border-radius: 8px;
   padding: 12px;
   cursor: pointer;
+  height: 100%;
 
   .add-to-cart-button {
     position: absolute;
