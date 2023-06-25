@@ -1,14 +1,16 @@
-import { useListProductsQuery } from 'graphQL/__generated/operations'
+import { useListProductsQuery } from 'graphQL/operations'
+
+import { client } from 'graphQL/client'
 
 export const HomePage = () => {
-  const listProductsQuery = useListProductsQuery({
+  const listProductCategoriesQuery = useListProductsQuery(client, {
     limit: 10,
     skip: 0,
   })
 
-  const data = listProductsQuery.data
+  const data = listProductCategoriesQuery.data
 
-  if (listProductsQuery.isLoading) {
+  if (listProductCategoriesQuery.isLoading) {
     return <h1>Loading...</h1>
   }
 
