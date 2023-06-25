@@ -1,7 +1,7 @@
 import { GraphQLClient } from 'graphql-request'
 import { useQuery, UseQueryOptions } from '@tanstack/react-query'
-export type Maybe<T> = T | null
-export type InputMaybe<T> = Maybe<T>
+export type Maybe<T> = T
+export type InputMaybe<T> = T
 export type Exact<T extends { [key: string]: unknown }> = {
   [K in keyof T]: T[K]
 }
@@ -21,7 +21,7 @@ export type Incremental<T> =
       [P in keyof T]?: P extends ' $fragmentName' | '__typename' ? T[P] : never
     }
 
-function fetcher<TData, TVariables extends Record<string, unknown>>(
+function fetcher<TData, TVariables extends { [key: string]: any }>(
   client: GraphQLClient,
   query: string,
   variables?: TVariables,
@@ -44,26 +44,24 @@ export type Scalars = {
 }
 
 export type ProductsEntry = {
-  __typename?: 'ProductsEntry'
-  brand?: Maybe<Scalars['String']['output']>
-  category?: Maybe<Scalars['String']['output']>
-  description?: Maybe<Scalars['String']['output']>
-  discountPercentage?: Maybe<Scalars['Float']['output']>
-  id?: Maybe<Scalars['Int']['output']>
-  images?: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  price?: Maybe<Scalars['Int']['output']>
-  rating?: Maybe<Scalars['Float']['output']>
-  stock?: Maybe<Scalars['Int']['output']>
-  thumbnail?: Maybe<Scalars['String']['output']>
-  title?: Maybe<Scalars['String']['output']>
+  brand: Maybe<Scalars['String']['output']>
+  category: Maybe<Scalars['String']['output']>
+  description: Maybe<Scalars['String']['output']>
+  discountPercentage: Maybe<Scalars['Float']['output']>
+  id: Maybe<Scalars['Int']['output']>
+  images: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  price: Maybe<Scalars['Int']['output']>
+  rating: Maybe<Scalars['Float']['output']>
+  stock: Maybe<Scalars['Int']['output']>
+  thumbnail: Maybe<Scalars['String']['output']>
+  title: Maybe<Scalars['String']['output']>
 }
 
 export type ProductsResponse = {
-  __typename?: 'ProductsResponse'
-  limit?: Maybe<Scalars['Int']['output']>
-  products?: Maybe<Array<Maybe<ProductsEntry>>>
-  skip?: Maybe<Scalars['Int']['output']>
-  total?: Maybe<Scalars['Int']['output']>
+  limit: Maybe<Scalars['Int']['output']>
+  products: Maybe<Array<Maybe<ProductsEntry>>>
+  skip: Maybe<Scalars['Int']['output']>
+  total: Maybe<Scalars['Int']['output']>
 }
 
 /**
@@ -75,12 +73,11 @@ export type ProductsResponse = {
  * executing the query’s top level selection set with the `Query` root object type.
  */
 export type Query = {
-  __typename?: 'Query'
-  listProductCategories?: Maybe<Array<Maybe<Scalars['String']['output']>>>
-  listProducts?: Maybe<ProductsResponse>
-  listProductsByCategory?: Maybe<ProductsResponse>
-  product?: Maybe<ProductsEntry>
-  searchProducts?: Maybe<ProductsResponse>
+  listProductCategories: Maybe<Array<Maybe<Scalars['String']['output']>>>
+  listProducts: Maybe<ProductsResponse>
+  listProductsByCategory: Maybe<ProductsResponse>
+  product: Maybe<ProductsEntry>
+  searchProducts: Maybe<ProductsResponse>
 }
 
 /**
@@ -141,8 +138,7 @@ export type ListProductCategoriesQueryVariables = Exact<{
 }>
 
 export type ListProductCategoriesQuery = {
-  __typename?: 'Query'
-  listProductCategories?: Array<string | null> | null
+  listProductCategories: Array<string>
 }
 
 export type ListProductsQueryVariables = Exact<{
@@ -151,27 +147,51 @@ export type ListProductsQueryVariables = Exact<{
 }>
 
 export type ListProductsQuery = {
-  __typename?: 'Query'
-  listProducts?: {
-    __typename?: 'ProductsResponse'
-    limit?: number | null
-    skip?: number | null
-    total?: number | null
-    products?: Array<{
-      __typename?: 'ProductsEntry'
-      brand?: string | null
-      category?: string | null
-      description?: string | null
-      discountPercentage?: number | null
-      id?: number | null
-      images?: Array<string | null> | null
-      price?: number | null
-      rating?: number | null
-      stock?: number | null
-      thumbnail?: string | null
-      title?: string | null
-    } | null> | null
-  } | null
+  listProducts: {
+    limit: number
+    skip: number
+    total: number
+    products: Array<{
+      brand: string
+      category: string
+      description: string
+      discountPercentage: number
+      id: number
+      images: Array<string>
+      price: number
+      rating: number
+      stock: number
+      thumbnail: string
+      title: string
+    }>
+  }
+}
+
+export type ListProductsAndCategoriesQueryVariables = Exact<{
+  limit: Scalars['Int']['input']
+  skip: Scalars['Int']['input']
+}>
+
+export type ListProductsAndCategoriesQuery = {
+  listProductCategories: Array<string>
+  listProducts: {
+    limit: number
+    skip: number
+    total: number
+    products: Array<{
+      brand: string
+      category: string
+      description: string
+      discountPercentage: number
+      id: number
+      images: Array<string>
+      price: number
+      rating: number
+      stock: number
+      thumbnail: string
+      title: string
+    }>
+  }
 }
 
 export type ListProductsByCategoryQueryVariables = Exact<{
@@ -181,27 +201,24 @@ export type ListProductsByCategoryQueryVariables = Exact<{
 }>
 
 export type ListProductsByCategoryQuery = {
-  __typename?: 'Query'
-  listProductsByCategory?: {
-    __typename?: 'ProductsResponse'
-    limit?: number | null
-    skip?: number | null
-    total?: number | null
-    products?: Array<{
-      __typename?: 'ProductsEntry'
-      brand?: string | null
-      category?: string | null
-      description?: string | null
-      discountPercentage?: number | null
-      id?: number | null
-      images?: Array<string | null> | null
-      price?: number | null
-      rating?: number | null
-      stock?: number | null
-      thumbnail?: string | null
-      title?: string | null
-    } | null> | null
-  } | null
+  listProductsByCategory: {
+    limit: number
+    skip: number
+    total: number
+    products: Array<{
+      brand: string
+      category: string
+      description: string
+      discountPercentage: number
+      id: number
+      images: Array<string>
+      price: number
+      rating: number
+      stock: number
+      thumbnail: string
+      title: string
+    }>
+  }
 }
 
 export type ProductQueryVariables = Exact<{
@@ -209,21 +226,19 @@ export type ProductQueryVariables = Exact<{
 }>
 
 export type ProductQuery = {
-  __typename?: 'Query'
-  product?: {
-    __typename?: 'ProductsEntry'
-    brand?: string | null
-    category?: string | null
-    description?: string | null
-    discountPercentage?: number | null
-    id?: number | null
-    images?: Array<string | null> | null
-    price?: number | null
-    rating?: number | null
-    stock?: number | null
-    thumbnail?: string | null
-    title?: string | null
-  } | null
+  product: {
+    brand: string
+    category: string
+    description: string
+    discountPercentage: number
+    id: number
+    images: Array<string>
+    price: number
+    rating: number
+    stock: number
+    thumbnail: string
+    title: string
+  }
 }
 
 export type SearchProductsQueryVariables = Exact<{
@@ -233,27 +248,24 @@ export type SearchProductsQueryVariables = Exact<{
 }>
 
 export type SearchProductsQuery = {
-  __typename?: 'Query'
-  searchProducts?: {
-    __typename?: 'ProductsResponse'
-    limit?: number | null
-    skip?: number | null
-    total?: number | null
-    products?: Array<{
-      __typename?: 'ProductsEntry'
-      brand?: string | null
-      category?: string | null
-      description?: string | null
-      discountPercentage?: number | null
-      id?: number | null
-      images?: Array<string | null> | null
-      price?: number | null
-      rating?: number | null
-      stock?: number | null
-      thumbnail?: string | null
-      title?: string | null
-    } | null> | null
-  } | null
+  searchProducts: {
+    limit: number
+    skip: number
+    total: number
+    products: Array<{
+      brand: string
+      category: string
+      description: string
+      discountPercentage: number
+      id: number
+      images: Array<string>
+      price: number
+      rating: number
+      stock: number
+      thumbnail: string
+      title: string
+    }>
+  }
 }
 
 export const ListProductCategoriesDocument = `
@@ -281,6 +293,25 @@ export const useListProductCategoriesQuery = <
       headers
     ),
     options
+  )
+useListProductCategoriesQuery.document = ListProductCategoriesDocument
+
+useListProductCategoriesQuery.getKey = (
+  variables?: ListProductCategoriesQueryVariables
+) =>
+  variables === undefined
+    ? ['listProductCategories']
+    : ['listProductCategories', variables]
+useListProductCategoriesQuery.fetcher = (
+  client: GraphQLClient,
+  variables?: ListProductCategoriesQueryVariables,
+  headers?: RequestInit['headers']
+) =>
+  fetcher<ListProductCategoriesQuery, ListProductCategoriesQueryVariables>(
+    client,
+    ListProductCategoriesDocument,
+    variables,
+    headers
   )
 export const ListProductsDocument = `
     query listProducts($limit: Int!, $skip: Int!) {
@@ -323,6 +354,77 @@ export const useListProductsQuery = <
     ),
     options
   )
+useListProductsQuery.document = ListProductsDocument
+
+useListProductsQuery.getKey = (variables: ListProductsQueryVariables) => [
+  'listProducts',
+  variables,
+]
+useListProductsQuery.fetcher = (
+  client: GraphQLClient,
+  variables: ListProductsQueryVariables,
+  headers?: RequestInit['headers']
+) =>
+  fetcher<ListProductsQuery, ListProductsQueryVariables>(
+    client,
+    ListProductsDocument,
+    variables,
+    headers
+  )
+export const ListProductsAndCategoriesDocument = `
+    query listProductsAndCategories($limit: Int!, $skip: Int!) {
+  listProductCategories
+  listProducts(limit: $limit, skip: $skip) {
+    limit
+    skip
+    total
+    products {
+      brand
+      category
+      description
+      discountPercentage
+      id
+      images
+      price
+      rating
+      stock
+      thumbnail
+      title
+    }
+  }
+}
+    `
+export const useListProductsAndCategoriesQuery = <
+  TData = ListProductsAndCategoriesQuery,
+  TError = unknown
+>(
+  client: GraphQLClient,
+  variables: ListProductsAndCategoriesQueryVariables,
+  options?: UseQueryOptions<ListProductsAndCategoriesQuery, TError, TData>,
+  headers?: RequestInit['headers']
+) =>
+  useQuery<ListProductsAndCategoriesQuery, TError, TData>(
+    ['listProductsAndCategories', variables],
+    fetcher<
+      ListProductsAndCategoriesQuery,
+      ListProductsAndCategoriesQueryVariables
+    >(client, ListProductsAndCategoriesDocument, variables, headers),
+    options
+  )
+useListProductsAndCategoriesQuery.document = ListProductsAndCategoriesDocument
+
+useListProductsAndCategoriesQuery.getKey = (
+  variables: ListProductsAndCategoriesQueryVariables
+) => ['listProductsAndCategories', variables]
+useListProductsAndCategoriesQuery.fetcher = (
+  client: GraphQLClient,
+  variables: ListProductsAndCategoriesQueryVariables,
+  headers?: RequestInit['headers']
+) =>
+  fetcher<
+    ListProductsAndCategoriesQuery,
+    ListProductsAndCategoriesQueryVariables
+  >(client, ListProductsAndCategoriesDocument, variables, headers)
 export const ListProductsByCategoryDocument = `
     query listProductsByCategory($categoryName: String!, $limit: Int!, $skip: Int!) {
   listProductsByCategory(categoryName: $categoryName, limit: $limit, skip: $skip) {
@@ -364,6 +466,22 @@ export const useListProductsByCategoryQuery = <
     ),
     options
   )
+useListProductsByCategoryQuery.document = ListProductsByCategoryDocument
+
+useListProductsByCategoryQuery.getKey = (
+  variables: ListProductsByCategoryQueryVariables
+) => ['listProductsByCategory', variables]
+useListProductsByCategoryQuery.fetcher = (
+  client: GraphQLClient,
+  variables: ListProductsByCategoryQueryVariables,
+  headers?: RequestInit['headers']
+) =>
+  fetcher<ListProductsByCategoryQuery, ListProductsByCategoryQueryVariables>(
+    client,
+    ListProductsByCategoryDocument,
+    variables,
+    headers
+  )
 export const ProductDocument = `
     query product($id: String!) {
   product(id: $id) {
@@ -396,6 +514,23 @@ export const useProductQuery = <TData = ProductQuery, TError = unknown>(
       headers
     ),
     options
+  )
+useProductQuery.document = ProductDocument
+
+useProductQuery.getKey = (variables: ProductQueryVariables) => [
+  'product',
+  variables,
+]
+useProductQuery.fetcher = (
+  client: GraphQLClient,
+  variables: ProductQueryVariables,
+  headers?: RequestInit['headers']
+) =>
+  fetcher<ProductQuery, ProductQueryVariables>(
+    client,
+    ProductDocument,
+    variables,
+    headers
   )
 export const SearchProductsDocument = `
     query searchProducts($limit: Int!, $skip: Int!, $search: String!) {
@@ -437,4 +572,21 @@ export const useSearchProductsQuery = <
       headers
     ),
     options
+  )
+useSearchProductsQuery.document = SearchProductsDocument
+
+useSearchProductsQuery.getKey = (variables: SearchProductsQueryVariables) => [
+  'searchProducts',
+  variables,
+]
+useSearchProductsQuery.fetcher = (
+  client: GraphQLClient,
+  variables: SearchProductsQueryVariables,
+  headers?: RequestInit['headers']
+) =>
+  fetcher<SearchProductsQuery, SearchProductsQueryVariables>(
+    client,
+    SearchProductsDocument,
+    variables,
+    headers
   )
