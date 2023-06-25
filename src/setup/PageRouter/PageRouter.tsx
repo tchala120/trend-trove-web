@@ -9,6 +9,7 @@ import { HomePage } from 'pages/HomePage'
 import { ProductsSearchPage } from 'pages/ProductsSearchPage'
 import { ProductsCategoryPage } from 'pages/ProductsCategoryPage'
 import { ProductDetailPage } from 'pages/ProductDetailPage'
+import { PaymentSuccessPage } from 'pages/PaymentSuccessPage'
 
 import { NotFoundPage } from 'pages/NotFoundPage'
 
@@ -32,6 +33,10 @@ export const PageRouter = () => {
             <Route path={paths.search} element={<ProductsSearchPage />} />
             <Route path={paths.category} element={<ProductsCategoryPage />} />
             <Route path={paths.productDetail} element={<ProductDetailPage />} />
+            <Route
+              path={paths.paymentSuccess}
+              element={<PaymentSuccessPage />}
+            />
           </Route>
 
           <Route path="*" element={<NotFoundPage />} />
