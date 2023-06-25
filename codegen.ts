@@ -28,6 +28,13 @@ const codegenConfig: CodegenConfig = {
       ],
       config: {
         fetcher: 'graphql-request',
+        skipTypename: true,
+        exposeFetcher: true,
+        exposeMutationKeys: true,
+        exposeQueryKeys: true,
+        exposeDocument: true,
+        avoidOptionals: true,
+        maybeValue: 'T',
       },
     },
   },
