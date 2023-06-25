@@ -1,12 +1,16 @@
 import styled from '@emotion/styled'
 import { Space, Tag } from 'antd'
 
-import { numberFormat } from 'helpers/formatter'
+import { moneyFormat, type MoneyFormatOptions } from 'helpers/formatter'
 import { getProductPriceBeforeDiscounted } from 'helpers/uilts'
 
 interface ProductPriceProps {
   productPrice: number
   discountPercentage: number
+}
+
+const moneyOptions: MoneyFormatOptions = {
+  prefix: '$',
 }
 
 export const ProductPrice = ({
@@ -23,16 +27,18 @@ export const ProductPrice = ({
     >
       <Space>
         <BeforeDiscountPrice>
-          $
-          {numberFormat(
-            getProductPriceBeforeDiscounted(productPrice, discountPercentage)
+          {moneyFormat(
+            getProductPriceBeforeDiscounted(productPrice, discountPercentage),
+            moneyOptions
           )}
         </BeforeDiscountPrice>
 
         <Tag color="#cd201f">{discountPercentage}% off</Tag>
       </Space>
 
-      <NetProductPrice>${numberFormat(productPrice)}</NetProductPrice>
+      <NetProductPrice>
+        {moneyFormat(productPrice, moneyOptions)}
+      </NetProductPrice>
     </Space>
   )
 }
