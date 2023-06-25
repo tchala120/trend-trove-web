@@ -18,6 +18,7 @@ const App = () => {
         componentSize="large"
         theme={{
           token: {
+            colorPrimary: '#22A699',
             fontFamily: 'Noto Sans Thai',
           },
         }}
