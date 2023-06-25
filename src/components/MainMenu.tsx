@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import styled from '@emotion/styled'
 import { Badge, Space } from 'antd'
 import {
@@ -11,6 +12,7 @@ import {
 import { useNavigate } from 'react-router-dom'
 
 import { BrandLogo } from 'components/BrandLogo'
+import { CartDisplay } from 'components/CartDisplay'
 
 import { useCartContext } from 'contexts/useCartContext'
 
@@ -24,6 +26,8 @@ const iconProps: Omit<FontAwesomeIconProps, 'icon'> = {
 
 export const MainMenu = () => {
   const navigate = useNavigate()
+
+  const [showCart, setShowCart] = useState<boolean>(false)
 
   const { totalItemsInCart } = useCartContext()
 
@@ -40,15 +44,20 @@ export const MainMenu = () => {
             onClick={() => navigate(paths.search)}
           />
 
-          <Badge count={totalItemsInCart}>
+          <Badge count={totalItemsInCart} overflowCount={99}>
             <FontAwesomeIcon
               title="Product cart"
               icon={faBasketShopping}
               {...iconProps}
+              onClick={() => {
+                setShowCart(true)
+              }}
             />
           </Badge>
         </Space>
       </nav>
+
+      <CartDisplay open={showCart} onClose={() => setShowCart(false)} />
     </MainMenuContainer>
   )
 }
