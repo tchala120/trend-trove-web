@@ -1,9 +1,10 @@
 import { type ReactNode } from 'react'
-import { Col, Row, Skeleton } from 'antd'
+import { Col, Row } from 'antd'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faBox } from '@fortawesome/free-solid-svg-icons'
 
 import { Title } from 'components/Title'
+import { LoadingPlaceholder } from 'components/LoadingPlaceholder'
 import { ProductItem } from './ProductItem'
 import { NotFoundContent } from 'components/NotFoundContent'
 
@@ -37,7 +38,15 @@ export const ProductList = ({ loading, title, products }: ProductListProps) => {
 
   function renderProductList() {
     if (loading || products == null) {
-      return <LoadingPlaceholder />
+      return (
+        <>
+          {Array.from({ length: 10 }, (_, index) => (
+            <Col key={index} xs={24} sm={12}>
+              <LoadingPlaceholder height={150} />
+            </Col>
+          ))}
+        </>
+      )
     }
 
     if (products.length === 0) {
@@ -52,29 +61,11 @@ export const ProductList = ({ loading, title, products }: ProductListProps) => {
     return (
       <>
         {products.map((product) => (
-          <Col key={product.id} xs={24} md={12}>
+          <Col key={product.id} xs={24} sm={12}>
             <ProductItem product={product} />
           </Col>
         ))}
       </>
     )
   }
-}
-
-const LoadingPlaceholder = () => {
-  return (
-    <>
-      {Array.from({ length: 10 }, (_, index) => (
-        <Col key={index} xs={24} md={12}>
-          <Skeleton.Input
-            style={{
-              height: 150,
-            }}
-            active
-            block
-          />
-        </Col>
-      ))}
-    </>
-  )
 }
