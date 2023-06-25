@@ -20,7 +20,8 @@ export const NotFoundPage = () => {
 
 const NotFoundPageContainer = styled.div`
   height: 100dvh;
-  width: 1440px;
+  width: 100%;
+  max-width: 768px;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
@@ -28,6 +29,7 @@ const NotFoundPageContainer = styled.div`
   align-items: center;
   text-align: center;
   gap: 24px;
+  padding: 24px;
 
   .title {
     font-size: 2rem;
